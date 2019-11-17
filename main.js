@@ -6,18 +6,15 @@ for (let i = 0; i < rows.length; i++) {
 google.charts.load("current", {packages:["sankey"]});
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
-	var data = new google.visualization.DataTable();
+	let data = new google.visualization.DataTable();
 	data.addColumn('string', 'From');
 	data.addColumn('string', 'To');
 	data.addColumn('number', 'Weight');
-	data.addRows(rows);
-
-    // Set chart options
-	var options = {
-		width: 600,
-	};
-
-	// Instantiate and draw our chart, passing in some options.
-	var chart = new google.visualization.Sankey(document.getElementById('sankey_multiple'));
-	chart.draw(data, options);
+  data.addRows(rows);
+  
+	let chart = new google.visualization.Sankey(document.getElementById('sankey'));
+	chart.draw(data, {
+    width: 900,
+    height: 500
+	});
 }
