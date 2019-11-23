@@ -9,12 +9,32 @@ function drawChart() {
 	let data = new google.visualization.DataTable();
 	data.addColumn('string', 'From');
 	data.addColumn('string', 'To');
-	data.addColumn('number', 'Weight');
+  data.addColumn('number', 'Weight');
+  data.addColumn({type: 'string', role: 'tooltip'});
+
+  rows.forEach((d, i) => {
+    [year0, star0] = d[0].split(',');
+    [year1, star1] = d[1].split(',');
+    rows[i].push(`${d[2]} restaurants of ${star0} ${(star0 === star1)? "stay":"become"} ${star1} in ${year1}`);
+  })
+  console.log(rows)
   data.addRows(rows);
   
 	let chart = new google.visualization.Sankey(document.getElementById('sankey'));
 	chart.draw(data, {
     width: 900,
-    height: 500
+    height: 500,
+    sankey: {
+      node: {
+        width: 5,
+        nodePadding: 10
+      },
+      link: {
+        color: {
+          fill: '#ccc', 
+          fillOpacity: 0.2
+        }
+      }
+    }
 	});
 }
